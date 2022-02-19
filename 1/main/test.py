@@ -26,6 +26,15 @@ def calc_y(A, b, t):
 
     return A * math.exp(1)**(b*t)
 
+def split_interval(e : list):
+
+    s = int(math.log2(len(e))) + 1
+    step = (max(e) - min(e))/s
+
+    interval = []
+    for i in range(s + 1):
+        interval.append(min(e) + i * step)
+    return interval
 
 if __name__ == '__main__':
     data, x = get_data()
@@ -42,10 +51,5 @@ if __name__ == '__main__':
     a = x_mean - b * t_mean
 
     e = [math.exp(a) * math.exp(b*i) for i in t]
-    s = int(math.log2(len(e))) + 1
-    step = (max(e) - min(e))/s
-
-    interval = []
-    for i in range(s + 1):
-        interval.append(min(e) + i * step)
-
+    interval = split_interval(e)
+    n = [0] * len(interval)
